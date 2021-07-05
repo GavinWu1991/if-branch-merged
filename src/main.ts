@@ -1,18 +1,26 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import execa from 'execa'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    // TODO: get pr head branch
+    const prHead = ''
+    const expectedBranch: string = core.getInput('expectedBranch', {
+      required: true
+    })
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    await execa.command(`git fetch origin ${expectedBranch}`)
 
-    core.setOutput('time', new Date().toTimeString())
-  } catch (error) {
-    core.setFailed(error.message)
+    const {stdout} = await execa.command(`git branch --contains ${prHead}`)
+    core.debug(stdout)
+
+    if (stdout.length > 0) {
+      // TODO: found merged branch need to continue validate
+    } else {
+      core.setFailed('the branch has not been merged to xxxx branch.')
+    }
+  } catch (err) {
+    core.setFailed(err.message)
   }
 }
 

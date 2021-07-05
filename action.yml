@@ -1,6 +1,6 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'If Branch Merged'
+description: 'A GitHub action to check if a pull request head branch has been merged to another branch'
+author: 'Gavin.Guohao.Wu'
 inputs:
   milliseconds: # change this
     required: true

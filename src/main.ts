@@ -5,11 +5,11 @@ async function run(): Promise<void> {
   try {
     // TODO: get pr head branch
     const prHead = ''
-    const expectedBranch: string = core.getInput('expectedBranch', {
+    const expected: string = core.getInput('expectedBranch', {
       required: true
     })
 
-    await execa.command(`git fetch origin ${expectedBranch}`)
+    await execa.command(`git fetch origin ${expected}`)
 
     const {stdout} = await execa.command(`git branch --contains ${prHead}`)
     core.debug(stdout)

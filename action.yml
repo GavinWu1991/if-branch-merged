@@ -1,11 +1,10 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'If Branch Merged'
+description: 'A GitHub action to check if a pull request head branch has been merged to another branch'
+author: 'Gavin.Guohao.Wu'
 inputs:
-  milliseconds: # change this
+  expected: # change this
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Input the name or regex of the branch which the merge is expected'
 runs:
   using: 'node12'
   main: 'dist/index.js'

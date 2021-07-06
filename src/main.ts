@@ -5,7 +5,7 @@ async function run(): Promise<void> {
   try {
     // TODO: get pr head branch
     const prHead = ''
-    const expected: string = core.getInput('expectedBranch', {
+    const expected: string = core.getInput('expected', {
       required: true
     })
 

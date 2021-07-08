@@ -17,7 +17,7 @@ async function run(): Promise<void> {
   try {
     if (notPrCreationTriggered(github.context)) {
       return core.setFailed(
-        'The action not triggered by pull request creation event'
+          'The action not triggered by pull request creation event'
       )
     }
 
@@ -26,7 +26,8 @@ async function run(): Promise<void> {
       required: true
     })
 
-    await execa.command(`git fetch -a`)
+    await execa.command(`git checkout --track origin/${prHead}`)
+    await execa.command(`git checkout --track origin/${expected}`)
 
     const {stdout} = await execa.command(`git branch --contains ${prHead}`)
     core.debug(stdout)

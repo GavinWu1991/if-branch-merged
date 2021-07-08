@@ -2,25 +2,26 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import execa from 'execa'
 import {PullRequestEvent} from '@octokit/webhooks-types'
+import {Context} from '@actions/github/lib/context'
 
-const notPrCreationTriggered = (): boolean => {
-  return github.context.eventName === 'pull request'
+const notPrCreationTriggered = (event: Context): boolean => {
+  return event.eventName === 'pull request'
 }
 
-const getPrHeadBranchName = (): string => {
-  const payload = github.context.payload as PullRequestEvent
+const getPrHeadBranchName = (event: Context): string => {
+  const payload = event.payload as PullRequestEvent
   return payload.pull_request.head.ref
 }
 
 async function run(): Promise<void> {
   try {
-    if (notPrCreationTriggered()) {
+    if (notPrCreationTriggered(github.context)) {
       return core.setFailed(
         'The action not triggered by pull request creation event'
       )
     }
 
-    const prHead = getPrHeadBranchName()
+    const prHead = getPrHeadBranchName(github.context)
     const expected: string = core.getInput('expected', {
       required: true
     })

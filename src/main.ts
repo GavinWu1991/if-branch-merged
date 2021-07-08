@@ -44,5 +44,5 @@ async function run(): Promise<void> {
     core.setFailed(err.message)
   }
 }
-
+// commit for validation
 run()

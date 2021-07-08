@@ -26,14 +26,14 @@ async function run(): Promise<void> {
       required: true
     })
 
-    await execa.command(`git fetch origin ${expected}`)
+    await execa.command(`git fetch -a`)
 
     const {stdout} = await execa.command(`git branch --contains ${prHead}`)
     core.debug(stdout)
 
     if (stdout.length > 0) {
-      const branchs = stdout.split(/[(\r\n)]+/)
-      if (branchs.find(branch => branch.indexOf(expected))) {
+      const branches = stdout.split(/[(\r\n)]+/)
+      if (branches.find(branch => branch.indexOf(expected))) {
         // TODO: add comment to PR if configured
         return
       }

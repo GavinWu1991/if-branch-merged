@@ -58,12 +58,13 @@ function run() {
             const expected = core.getInput('expected', {
                 required: true
             });
-            yield execa_1.default.command(`git fetch origin ${expected}`);
+            yield execa_1.default.command(`git checkout --track origin/${prHead}`);
+            yield execa_1.default.command(`git checkout --track origin/${expected}`);
             const { stdout } = yield execa_1.default.command(`git branch --contains ${prHead}`);
             core.debug(stdout);
             if (stdout.length > 0) {
-                const branchs = stdout.split(/[(\r\n)]+/);
-                if (branchs.find(branch => branch.indexOf(expected))) {
+                const branches = stdout.split(/[(\r\n)]+/);
+                if (branches.find(branch => branch.indexOf(expected))) {
                     // TODO: add comment to PR if configured
                     return;
                 }

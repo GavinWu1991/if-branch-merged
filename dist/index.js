@@ -58,8 +58,9 @@ function run() {
             const expected = core.getInput('expected', {
                 required: true
             });
-            yield execa_1.default.command(`git checkout --track origin/${prHead}`);
-            yield execa_1.default.command(`git checkout --track origin/${expected}`);
+            yield execa_1.default.command(`git fetch --all`);
+            yield execa_1.default.command(`git checkout --track -b ${prHead}`);
+            yield execa_1.default.command(`git checkout --track -b ${expected}`);
             const { stdout } = yield execa_1.default.command(`git branch --contains ${prHead}`);
             core.debug(stdout);
             if (stdout.length > 0) {
@@ -78,6 +79,7 @@ function run() {
         }
     });
 }
+// commit for validation
 run();
 
 

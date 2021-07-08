@@ -26,8 +26,9 @@ async function run(): Promise<void> {
       required: true
     })
 
-    await execa.command(`git checkout --track origin/${prHead}`)
-    await execa.command(`git checkout --track origin/${expected}`)
+    await execa.command(`git fetch --all`)
+    await execa.command(`git checkout --track -b ${prHead}`)
+    await execa.command(`git checkout --track -b ${expected}`)
 
     const {stdout} = await execa.command(`git branch --contains ${prHead}`)
     core.debug(stdout)

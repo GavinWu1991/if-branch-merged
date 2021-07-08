@@ -17,7 +17,7 @@ async function run(): Promise<void> {
   try {
     if (notPrCreationTriggered(github.context)) {
       return core.setFailed(
-          'The action not triggered by pull request creation event'
+        'The action not triggered by pull request creation event'
       )
     }
 

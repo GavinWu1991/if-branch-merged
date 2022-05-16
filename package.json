@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "if-branch-merged-action",
   "version": "0.1.0",
   "private": false,
@@ -30,7 +30,7 @@
     "@actions/core": "^1.4.0",
     "@actions/github": "^5.0.0",
     "@octokit/webhooks-types": "^4.1.0",
-    "execa": "^4.1.0"
+    "execa": "^6.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
